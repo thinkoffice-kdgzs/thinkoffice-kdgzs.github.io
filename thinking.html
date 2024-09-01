@@ -1,0 +1,565 @@
+<meta charset="utf-8">
+<style>
+/* 全局样式 */  
+/* 全局样式 */  
+body {  
+    font-family: Arial, sans-serif;  
+    margin: 0;  
+    padding: 0;  
+    background-color: #f5f5f5;  
+}  
+  
+/* 通用圆角边框样式 */  
+.rounded-border {  
+    border: 1px solid #ddd;  
+    border-radius: 10px;  
+    padding: 10px;  
+    transition: background-color 0.3s;  
+}  
+  
+.rounded-border:hover {  
+    background-color: rgba(128, 128, 128, 0.1);  
+    cursor: pointer;  
+}  
+  
+/* 时间显示样式 */  
+.time .box {  
+    display: inline-block;  
+    padding: 5px 15px;  
+    border-radius: 25px; /* 更大的圆角以实现横向效果 */  
+    background-color: transparent; /* 无背景 */  
+    user-select: none; /* 防止用户选中文本 */  
+}  
+  
+.time .box:hover {  
+    background-color: rgba(128, 128, 128, 0.1); /* 鼠标悬停时的浅灰色背景 */  
+}  
+  
+/* 搜索框和选项 */  
+.search {  
+    margin: 20px auto;  
+    width: 50%; /* 设置搜索框容器的宽度 */  
+
+}  
+  
+.search .box_search {  
+    width: 100%; /* 搜索框宽度占满容器 */  
+    padding: 10px;  
+    border-radius: 10px;  
+    border: 1px solid #ddd;  
+    text-align: left; /* 文本左对齐 */  
+}  
+  
+.search-links {  
+    margin-top: 10px;  
+}  
+  
+.search-link {  
+    display: inline-block;  
+    margin: 0 5px;  
+}  
+  
+.show-more {  
+    display: inline-block;  
+    margin-top: 10px;  
+    color: blue;  
+    text-decoration: underline;  
+    cursor: pointer;  
+}  
+  
+/* 背景选择下拉菜单样式 */  
+#bg-select {  
+    margin: 10px auto;  
+    display: block;  
+    width: 200px;  
+    padding: 5px;  
+    border-radius: 10px;  
+    border: 1px solid #ddd;  
+    appearance: none;  
+    -moz-appearance: none;  
+    -webkit-appearance: none;  
+    background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');  
+    background-repeat: no-repeat;  
+    background-position-x: 100%;  
+    background-position-y: 5px;  
+}  
+  
+/* 隐藏文件输入样式（如果需要显示一个按钮来触发它，请添加相应的样式和HTML） */  
+  
+/* 侧边栏样式 */  
+.aside_1 {  
+    position: fixed;  
+    top: 0;  
+    left: -300px;  
+    width: 280px;  
+    height: 100%;  
+    background-color: #fff;  
+    z-index: 1000;  
+    transition: left 0.3s ease;  
+    overflow: auto;  
+    padding: 20px;  
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  
+}  
+  
+.aside_1 h4, .aside_1 h5 {  
+    margin: 0;  
+    padding: 0;  
+}  
+  
+.aside_1 .line_1 {  
+    height: 1px;  
+    background-color: #ddd;  
+    margin: 10px 0;  
+}  
+  
+#sidemenu:checked~ .aside_1 {
+left: 0;
+}
+
+#sideMenuControl {
+position: absolute;
+top: 10px;
+right: 20px;
+font-size: 2em;
+cursor: pointer;
+z-index: 1001; /* Ensure it's above the aside */
+}
+
+/* 图标背景盒子样式 */
+.iconBackBoxAll {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+margin-top: 20px;
+}
+
+.iconBackBox {
+display: inline-block;
+text-align: center;
+margin: 10px;
+padding: 10px;
+border-radius: 10px;
+transition: transform 0.2s;
+text-decoration: none;
+color: black;
+}
+
+.iconBackBox:hover {
+transform: scale(1.1);
+}
+
+.iconBackBox p {
+margin: 0;
+}
+/* 默认的标签样式 */  
+
+
+/* 设置搜索链接区域的样式 */
+.search-links {
+  display: flex; /* 使用flex布局使所有选择框在同一行显示 */
+  flex-wrap: wrap; /* 允许内容自动换行 */
+  background-color: #f0f0f0; /* 设置背景色为浅灰色 */
+  padding: 10px; /* 添加内边距 */
+  border-radius: 5px; /* 圆角边框 */
+}
+
+/* 设置每个搜索链接的样式 */
+.search-link {
+  display: inline-flex; /* 使标签内的元素水平排列 */
+  align-items: center; /* 垂直居中对齐 */
+  margin-right: 10px; /* 添加右边距 */
+  cursor: pointer; /* 鼠标悬停时显示指针 */
+  transition: background-color 0.3s ease; /* 添加背景色过渡效果 */
+}
+
+
+
+.addButton{
+    border: 0px;
+    width: 40px;
+}
+.deleteButton{
+    border: 0px;
+    width: 40px;
+}
+/* 添加按钮悬停时的样式 */  
+.addButton:hover {  
+    background-color: #fff; /* 白色背景 */  
+    color: #333; /* 深灰色文字 */  
+}  
+  
+/* 删除按钮悬停时的样式 */  
+.deleteButton:hover {  
+    background-color: #ff4d4d; /* 红色背景 */  
+    color: #fff; /* 白色文字 */  
+}  
+  
+/* 添加按钮点击时的样式（如果需要） */  
+.addButton:active {  
+    background-color: #ddd; /* 深灰色背景 */  
+    transform: scale(0.95); /* 缩小按钮 */  
+    transition: transform 0.1s ease; /* 快速的缩放过渡效果 */  
+}  
+  
+/* 删除按钮点击时的样式（如果需要） */  
+.deleteButton:active {  
+    background-color: #ff3333; /* 更深的红色背景 */  
+    transform: scale(0.95); /* 缩小按钮 */  
+    transition: transform 0.1s ease; /* 快速的缩放过渡效果 */  
+}
+/* 其他元素可以根据需要继续添加样式 */
+
+/* 清除默认的input样式*/
+input[type="file"] {
+display: none; / Hidden by default */
+}
+
+/* 自定义的上传按钮样式（如果需要） /
+/ 这里没有HTML中的对应元素，所以样式是假设性的 */
+.custom-upload-button {
+display: inline-block;
+padding: 10px 20px;
+border-radius: 10px;
+background-color: #007BFF;
+color: white;
+cursor: pointer;
+transition: background-color 0.3s;
+text-decoration: none;
+}
+
+.custom-upload-button:hover {
+background-color: #0056b3;
+}
+
+/* 如果需要美化iframe，可以添加如下样式，但注意同源策略可能限制对iframe内部元素的样式更改 */
+iframe {
+border: none;
+width: 100%;
+height: 500px;
+}
+
+/* 对于更复杂的布局或样式需求，请提供更多细节或HTML结构 */
+</style>
+<body id="body">
+<select id="bg-select" onchange="changeBackground()">  
+    <option value="default">默认背景</option>  
+    <option value="bing">Bing每日一图</option>  
+    <option value="custom">自定义图片</option>  
+</select>  
+<input type="file" id="custom-bg-input" style="display: none;" onchange="uploadCustomBackground(event)">
+    <script>  
+        var body = document.getElementById("body");  
+        var customBgInput = document.getElementById("custom-bg-input");
+          function changeBackground() {  
+            var select = document.getElementById("bg-select");  
+            var option = select.options[select.selectedIndex];  
+            if (option.value === "default") {  
+                body.style.backgroundImage = "";  
+                localStorage.setItem("bgType", ""); // 清除背景类型的存储值
+            } else if (option.value === "bing") {  
+                body.style.backgroundImage = "url('https://bing.img.run/1920x1080.php')";  
+                localStorage.setItem("bgType", "url('https://bing.img.run/1920x1080.php')"); // 存储背景类型的值
+            } else if (option.value === "custom") {  
+                customBgInput.click();  
+            } else {
+                body.style.backgroundImage = option.value; // 使用用户选择的背景图片
+                localStorage.setItem("bgType", option.value); // 存储背景类型的值
+            }  
+        }  
+        
+        function uploadCustomBackground(event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                body.style.backgroundImage = "url('" + e.target.result + "')";
+                localStorage.setItem("bgType", "url('" + e.target.result + "')"); // 存储背景类型的值
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // 初始化页面时根据localStorage中的值设置背景类型  
+        var bgType = localStorage.getItem("bgType");  
+        if (bgType) {  
+            body.style.backgroundImage = bgType; // 根据localStorage中的值设置背景图片
+            if (bgType === "url('https://bing.img.run/1920x1080.php')") {
+                document.getElementById("bg-select").value = "bing"; // 根据localStorage中的值设置下拉框的选中项  
+            } else if (bgType.startsWith("url('")) {
+                document.getElementById("bg-select").value = "custom"; // 根据localStorage中的值设置下拉框的选中项  
+            }
+        } else {  
+            document.getElementById("bg-select").value = "default"; // 默认选择默认背景类型  
+            body.style.backgroundImage = ""; // 默认清空背景图片  
+        }  
+    </script>  
+
+
+<center>
+<div class="time">
+    <div onclick="copyInnerTextOfCell(event)" class="box"></div>
+</div>
+</center>
+<div class="search">
+<form onsubmit="return search()">
+    <input style="text-align: center;" type="text" class="box_search" autocomplete="off" autofocus id="search_input" placeholder="搜点啥..." onfocus="this.select()">
+    <br>
+    <br><center>
+    <div class="search-links">
+        <label class="search-link"><input type="checkbox" value="baidu" name="search_engine" checked="checked"> 百度</label>
+        <label class="search-link"><input type="checkbox" value="bing" name="search_engine"> 必应</label>
+        <label class="search-link"><input type="checkbox" value="sina" name="search_engine"> 新浪</label>
+        <label class="search-link"><input type="checkbox" value="baidufanyi" name="search_engine"> 百度翻译</label>
+        <label class="search-link"><input type="checkbox" value="youdaofanyi" name="search_engine"> 有道翻译</label>
+        <label class="search-link"><input type="checkbox" value="souhu" name="search_engine"> 搜狐</label>
+        <label class="search-link"><input type="checkbox" value="360" name="search_engine"> 360</label>
+        <label class="search-link"><input type="checkbox" value="sogou" name="search_engine"> 搜狗</label>
+        <label class="search-link"><input type="checkbox" value="google" name="search_engine"> Google</label>    
+    </div></center>
+    <div class="show-more" onclick="toggleMore()"></div>
+</form>
+</div>
+
+<input type='checkbox' id='sidemenu'>
+<aside class="aside_1"style="overflow-x: hidden;">
+    <h4>thinking-有问必答的起始页 | 基于寻声框架 | think工作室荣誉出品</h4>
+    <div class="line_1"></div>
+    <h5>更新说明:2023/12/15 增加默认选中输入框，增加简版和繁版的单击选中全部内容，美化页面</h5>
+    <h5>更新说明:2023/12/13 修改页面CSS并美化</h5>
+    <h5>更新说明:2023/11/07 美化全页面</h5>
+    <h5>更新说明:2023/11/06 修正全页面</h5>
+    <h5>更新说明:2023/11/05 完成背景更换部分</h5>
+    <h5>更新说明:2023/11/04 完成添加个人收藏网站部分，完成时间复制部分，修正更新说明部分</h5>
+    <h5>更新说明:2023/11/03 完成网页展示部分</h5>
+    <h5>更新说明:2023/11/02 初步搭建CDA2.0</h5>
+</aside>
+<div id='wrap'>
+    <label id='sideMenuControl' for='sidemenu'>≡</label>
+</div>
+
+<center>
+<div class="iconBackBoxAll">
+  <a class="iconBackBox" href="https://czoffice.top">
+    <div>
+      <p>CZ工作室官网</p>
+    </div>
+  </a>
+  <a class="iconBackBox" href="https://xunsheng.czoffice.top/jian.html">
+    <div>
+      <p>thinking简版</p>
+    </div>
+  </a>
+  <div id="savedWebsites"></div>
+  <button class="addButton" onclick="addWebsite()">+</button>
+  <button class="deleteButton" onclick="deleteWebsite()">-</button>
+</div>
+<iframe src="https://xunsheng.czoffice.top/CDA/project/1/index.php" width="100%" style="border:0;"></iframe>
+</center>
+
+<script>
+  // 页面加载时读取保存的网站信息
+  window.onload = function() {
+    var savedWebsites = JSON.parse(localStorage.getItem("websites"));
+    if (savedWebsites) {
+      var websitesContainer = document.getElementById("savedWebsites");
+      for (var i = 0; i < savedWebsites.length; i++) {
+        var website = savedWebsites[i];
+        addWebsiteToPage(website.name, website.url);
+      }
+    }
+  };
+
+  // 添加网站信息
+  function addWebsite() {
+    var websiteUrl = prompt("请输入网站的网址：");
+    var websiteName = prompt("请输入网站的名称：");
+    if (websiteUrl && websiteName) {
+      addWebsiteToPage(websiteName, websiteUrl);
+      saveWebsite(websiteName, websiteUrl);
+    }
+  }
+
+  // 在页面中添加网站信息
+  function addWebsiteToPage(name, url) {
+    var websitesContainer = document.getElementById("savedWebsites");
+    var newWebsite = document.createElement("a");
+    newWebsite.className = "iconBackBox";
+    newWebsite.href = url;
+    var content = document.createElement("div");
+    var websiteName = document.createElement("p");
+    websiteName.innerText = name;
+    content.appendChild(websiteName);
+    newWebsite.appendChild(content);
+    websitesContainer.appendChild(newWebsite);
+  }
+        // 保存网站信息到本地存储
+        function saveWebsite(name, url) {
+            var savedWebsites = JSON.parse(localStorage.getItem("websites")) || [];
+            savedWebsites.push({ name: name, url: url });
+            localStorage.setItem("websites", JSON.stringify(savedWebsites));
+        }
+
+
+        // 删除网站信息
+        function deleteWebsite() {
+            var websiteName = prompt("请输入要删除的网站名称：");
+            if (websiteName) {
+                deleteWebsiteFromPage(websiteName);
+                deleteWebsiteFromStorage(websiteName);
+            }
+        }
+        // 删除页面中的网站信息
+        function deleteWebsiteFromPage(name) {
+            var websitesContainer = document.getElementById("savedWebsites");
+            var websites = websitesContainer.getElementsByTagName("a");
+            for (var i = 0; i < websites.length; i++) {
+                var websiteName = websites[i].querySelector("p").innerText;
+                if (websiteName === name) {
+                    websitesContainer.removeChild(websites[i]);
+                    break;
+                }
+            }
+        }
+        // 从本地存储中删除网站信息
+        function deleteWebsiteFromStorage(name) {
+            var savedWebsites = JSON.parse(localStorage.getItem("websites"));
+            if (savedWebsites) {
+                savedWebsites = savedWebsites.filter(function(website) {
+                    return website.name !== name;
+                });
+                localStorage.setItem("websites", JSON.stringify(savedWebsites));
+            }
+        }
+</script>
+
+
+
+<script>
+
+/*点击弹出按钮*/
+    function popBox() {
+        var popBox = document.getElementById("popBox");
+        var popLayer = document.getElementById("popLayer");
+        popBox.style.display = "block";
+        popLayer.style.display = "block";
+    };
+    /*点击关闭按钮*/
+    function closeBox() {
+        var popBox = document.getElementById("popBox");
+        var popLayer = document.getElementById("popLayer");
+        popBox.style.display = "none";
+        popLayer.style.display = "none";
+    }
+</script>
+
+<script>
+    copyInnerTextOfCell = (event) => { 
+      let innerText = event.target.innerText; 
+      var tmpInput = document.createElement("input"); 
+      document.body.appendChild(tmpInput); 
+      tmpInput.value = innerText; 
+      tmpInput.select(); 
+      document.execCommand("cut"); // copy 
+      tmpInput.remove(); 
+      alert("复制成功！" + innerText); 
+     } 
+</script>
+<script>
+var t = null;
+t = setTimeout(time, 1000); //开始运行
+function time() {
+    clearTimeout(t); //清除定时器
+    var dt = new Date();
+    var h = dt.getHours(); //获取时
+    var m = dt.getMinutes(); //获取分
+    var month = dt.getMonth() + 1; //获取月份，并加1
+    if (h < 10) h = "0" + h;
+    if (m < 10) m = "0" + m;
+    document.getElementById("box").innerHTML = h + ":" + m + " " + month + "月" + dt.getDate() + "日";
+    t = setTimeout(time, 1000);
+}
+
+
+
+    function search() {
+        if (document.getElementById("search_input").value != "") {
+            var selectedEngines = document.querySelectorAll('input[name="search_engine"]:checked');
+            var searchQuery = document.getElementById("search_input").value;
+            selectedEngines.forEach(function (engine) {
+                var engineValue = engine.value;
+                var searchUrl = "";
+                switch (engineValue) {
+                    case "google":
+                        searchUrl = "https://www.google.com/search?q=" + searchQuery;
+                        break;
+                    case "baidu":
+                        searchUrl = "https://www.baidu.com/s?wd=" + searchQuery;
+                        break;
+                    case "sina":
+                        searchUrl = "https://s.weibo.com/weibo?q=" + searchQuery;
+                        break;
+                    case "sogou":
+                        searchUrl = "https://www.sogou.com/web?query=" + searchQuery;
+                        break;
+                    case "sohu":
+                        searchUrl = "https://search.sohu.com/?queryType=outside&keyword=" + searchQuery;
+                        break;
+                    case "youdaofanyi":
+                        searchUrl = "https://www.youdao.com/result?word=" + searchQuery + "&lang=en";
+                        break;
+                    case "bing":
+                        searchUrl = "https://cn.bing.com/search?q=" + searchQuery;
+                        break;
+                    case "360":
+                        searchUrl = "https://www.so.com/s?q=" + searchQuery;
+                        break;
+                    case "baidufanyi":
+                        searchUrl = "https://fanyi.baidu.com/#en/zh/" + searchQuery;
+                        break;
+                    // Add cases for other search engines if needed
+
+                }
+                window.open(searchUrl, '_blank');
+            });
+            document.getElementById("search_input").value = "";
+        }
+        return false;
+    }
+</script>
+<script>
+
+  function clearInput() {
+
+    document.getElementById("search_input").value = "";
+
+  }
+
+</script>
+<script>
+    function toggleMore() {
+        var searchLinks = document.getElementsByClassName("search-link");
+        var showMoreBtn = document.querySelector(".show-more");
+        for (var i = 4; i < searchLinks.length; i++) {
+            searchLinks[i].classList.toggle("collapsed");
+        }
+        showMoreBtn.classList.toggle("collapsed");
+    }
+</script>
+<script>
+const divObj = document.getElementsByClassName('box')[0];
+setInterval(() => {
+    const nowTime = getNowTime();
+    divObj.innerText = nowTime;
+});
+
+function getNowTime() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1; // 将获取的月份值加1
+    const day = date.getDate();
+    const hour = date.getHours();
+    const minute = date.getMinutes();
+    const seconds = date.getSeconds();
+    return `${year}-${month}-${day} ${hour}:${minute}:${seconds < 10 ? '0' + seconds : seconds}`;
+}
+
+</script>
+</body>
