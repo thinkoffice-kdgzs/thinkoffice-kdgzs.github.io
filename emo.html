@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>emmmo</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .spinner {
+            margin: 20px auto;
+            width: 50px;
+            height: 50px;
+            border: 6px solid #ccc;
+            border-top: 6px solid #333;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .message {
+            font-size: 18px;
+            margin-top: 20px;
+            line-height: 1.6; /* 调整行间距 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="spinner"></div>
+        <div class="message">
+           作者开学了<br>
+           更新不了了<br>
+           一起默哀...
+        </div>
+    </div>
+</body>
+</html>
